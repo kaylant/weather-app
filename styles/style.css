@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #333;
+  margin: 0; }
+
+.align-children {
+  font-size: 0; }
+  .align-children * {
+    display: inline-block;
+    vertical-align: top;
+    font-size: medium; }
+
+#mainContainer {
+  width: 80%;
+  margin: 50px auto;
+  border: #333 solid 2px;
+  text-align: center;
+  color: #4078c0; }
+
+/*# sourceMappingURL=style.css.map */

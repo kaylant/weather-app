@@ -1,0 +1,27 @@
+$font-stack:    Helvetica, sans-serif
+$primary-color: #333
+$secondary-color: #4078c0
+
+*
+  box-sizing: border-box
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+  margin: 0
+
+.align-children
+  font-size: 0
+  *
+    display: inline-block
+    vertical-align: top
+    font-size: medium
+
+#mainContainer 
+  width: 80%
+  margin: 50px auto
+  border: $primary-color solid 2px
+  text-align: center
+
+  #currentTemp
+  color: $secondary-color

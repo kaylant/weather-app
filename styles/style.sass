@@ -2,6 +2,7 @@ $font-stack:    Helvetica, sans-serif
 $primary-color: #333
 $secondary-color: #4078c0
 
+
 *
   box-sizing: border-box
 
@@ -18,10 +19,145 @@ body
     font-size: medium
 
 #mainContainer 
-  width: 80%
-  margin: 50px auto
-  border: $primary-color solid 2px
+  width: 100%
   text-align: center
+  // background-image: url("http://data.hdwallpapers.im/double_rainbow.jpg")
+  background-image: url("https://media.giphy.com/media/kVicp4f3OJoze/giphy.gif")
+  background-size: cover
+  -webkit-background-size: cover
+  -moz-background-size: cover
+  vertical-align: top
+  color: white
+  height: 100vh
+  position: relative
+
+  h2
+    position: absolute
+    margin-top: 50px
+    margin-left: auto
+    margin-right: auto
+    text-align: center
+    width: 100%
+
+
+  .buttons
+    position: absolute
+    margin-top: 100px
+    margin-left: auto
+    margin-right: auto
+    text-align: center
+    width: 100%
+
+    #current
+      border: 2px solid white
+      color: white
+      background: transparent
+      padding: 15px 32px
+      text-align: center
+      display: inline-block
+      font-size: 16px
+      border-radius: 5px
+      margin: 0 10px
+      transition-duration: 0.4s
+      -moz-transition-duration: 0.4s
+      -webkit-transition-duration: 0.4s
+
+    #daily
+      border: 2px solid white
+      color: white
+      background: transparent
+      padding: 15px 32px
+      text-align: center
+      display: inline-block
+      font-size: 16px
+      border-radius: 5px 
+      margin: 0 10px
+      transition-duration: 0.4s
+      -moz-transition-duration: 0.4s
+      -webkit-transition-duration: 0.4s
+
+    #hourly
+      border: 2px solid white
+      color: white
+      background: transparent
+      padding: 15px 32px
+      text-align: center
+      display: inline-block
+      font-size: 16px
+      border-radius: 5px 
+      margin: 0 10px
+      transition-duration: 0.4s
+      -moz-transition-duration: 0.4s
+      -webkit-transition-duration: 0.4s
+
+    #current:hover
+      background-color: rgba(15, 15, 15, .2)
+      color: white
+
+    #current:focus
+      outline: none 
+
+    #current:active
+      outline: none
+
+    #daily:hover
+      background-color: rgba(15, 15, 15, .2)
+      color: white
+
+    #daily:focus
+      outline: none 
+
+    #daily:active
+      outline: none
+
+    #hourly:hover
+      background-color: rgba(15, 15, 15, .2)
+      color: white
+
+    #hourly:focus
+      outline: none 
+
+    #houly:active
+      outline: none
 
   #currentTemp
-  color: $secondary-color
+    position: absolute
+    width: 100%
+    margin-top: 200px
+    margin-right: auto
+    margin-left: auto
+    text-align: center
+    display: -webkit-box
+    display: -moz-box
+    display: -ms-flexbox
+    display: -moz-flex
+    display: -webkit-flex
+    display: flex
+    flex-wrap: wrap
+
+    .currentTempStyles
+      text-align: center
+      width: 100%
+
+    .dailyTempStyles
+      margin: 5px auto
+      // border: solid 2px white
+      padding: 10px
+      height: 200px
+      width: 25%
+
+      p
+        font-size: 14px
+
+    .hourlyTempStyles
+      margin: 5px auto
+      // border: solid 2px white
+      padding: 10px
+      height: 20%
+      width: 15%
+
+      p
+        font-size: 14px
+
+
+

@@ -14,10 +14,120 @@ body {
     font-size: medium; }
 
 #mainContainer {
-  width: 80%;
-  margin: 50px auto;
-  border: #333 solid 2px;
+  width: 100%;
   text-align: center;
-  color: #4078c0; }
+  background-image: url("https://media.giphy.com/media/kVicp4f3OJoze/giphy.gif");
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  vertical-align: top;
+  color: white;
+  height: 100vh;
+  position: relative; }
+  #mainContainer h2 {
+    position: absolute;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%; }
+  #mainContainer .buttons {
+    position: absolute;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%; }
+    #mainContainer .buttons #current {
+      border: 2px solid white;
+      color: white;
+      background: transparent;
+      padding: 15px 32px;
+      text-align: center;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      margin: 0 10px;
+      transition-duration: 0.4s;
+      -moz-transition-duration: 0.4s;
+      -webkit-transition-duration: 0.4s; }
+    #mainContainer .buttons #daily {
+      border: 2px solid white;
+      color: white;
+      background: transparent;
+      padding: 15px 32px;
+      text-align: center;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      margin: 0 10px;
+      transition-duration: 0.4s;
+      -moz-transition-duration: 0.4s;
+      -webkit-transition-duration: 0.4s; }
+    #mainContainer .buttons #hourly {
+      border: 2px solid white;
+      color: white;
+      background: transparent;
+      padding: 15px 32px;
+      text-align: center;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 5px;
+      margin: 0 10px;
+      transition-duration: 0.4s;
+      -moz-transition-duration: 0.4s;
+      -webkit-transition-duration: 0.4s; }
+    #mainContainer .buttons #current:hover {
+      background-color: rgba(15, 15, 15, 0.2);
+      color: white; }
+    #mainContainer .buttons #current:focus {
+      outline: none; }
+    #mainContainer .buttons #current:active {
+      outline: none; }
+    #mainContainer .buttons #daily:hover {
+      background-color: rgba(15, 15, 15, 0.2);
+      color: white; }
+    #mainContainer .buttons #daily:focus {
+      outline: none; }
+    #mainContainer .buttons #daily:active {
+      outline: none; }
+    #mainContainer .buttons #hourly:hover {
+      background-color: rgba(15, 15, 15, 0.2);
+      color: white; }
+    #mainContainer .buttons #hourly:focus {
+      outline: none; }
+    #mainContainer .buttons #houly:active {
+      outline: none; }
+  #mainContainer #currentTemp {
+    position: absolute;
+    width: 100%;
+    margin-top: 200px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap; }
+    #mainContainer #currentTemp .currentTempStyles {
+      text-align: center;
+      width: 100%; }
+    #mainContainer #currentTemp .dailyTempStyles {
+      margin: 5px auto;
+      padding: 10px;
+      height: 200px;
+      width: 25%; }
+      #mainContainer #currentTemp .dailyTempStyles p {
+        font-size: 14px; }
+    #mainContainer #currentTemp .hourlyTempStyles {
+      margin: 5px auto;
+      padding: 10px;
+      height: 20%;
+      width: 15%; }
+      #mainContainer #currentTemp .hourlyTempStyles p {
+        font-size: 14px; }
 
 /*# sourceMappingURL=style.css.map */

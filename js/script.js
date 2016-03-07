@@ -35,8 +35,8 @@ var containerEl = document.querySelector("#currentTemp"),
 var getCurrentWeather = function(positionObj) {
 	var lat = positionObj.coords.latitude,
 		long = positionObj.coords.longitude
-	var fullUrl + "?callback=?" = baseUrl + "/" + lat + "," + long
-	// var fullUrl + "?callback=?" = baseUrl + "/" + lat + "," + long + "?callback=?"
+	var fullUrl = baseUrl + "/" + lat + "," + long
+	// var fullUrl = baseUrl + "/" + lat + "," + long + "?callback=?"
 	$.getJSON(fullUrl + "?callback=?").then(generateCurrentHTML)
 }
 
@@ -54,8 +54,8 @@ var generateCurrentHTML = function(response){
 var getDailyWeather = function(positionObj) {
 	var lat = positionObj.coords.latitude,
 		long = positionObj.coords.longitude
-	var fullUrl + "?callback=?" = baseUrl + "/" + lat + "," + long
-	// var fullUrl + "?callback=?" = baseUrl + "/" + lat + "," + long + "?callback=?"
+	var fullUrl = baseUrl + "/" + lat + "," + long
+	// var fullUrl = baseUrl + "/" + lat + "," + long + "?callback=?"
 	$.getJSON(fullUrl + "?callback=?").then(generateDailyHTML)
 }
 
@@ -96,8 +96,8 @@ var generateDayHTML = function(response){
 var getHourlyWeather = function(positionObj) {
 	var lat = positionObj.coords.latitude,
 		long = positionObj.coords.longitude
-	var fullUrl + "?callback=?" = baseUrl + "/" + lat + "," + long
-	// var fullUrl + "?callback=?" = baseUrl + "/" + lat + "," + long + "?callback=?"
+	var fullUrl = baseUrl + "/" + lat + "," + long
+	// var fullUrl = baseUrl + "/" + lat + "," + long + "?callback=?"
 	$.getJSON(fullUrl + "?callback=?").then(generateHourlyHTML)
 }
 

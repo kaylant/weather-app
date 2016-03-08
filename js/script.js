@@ -1,63 +1,41 @@
-// ---------------- Global Variables ---------------- //
+console.log(Backbone)
 
-// desired Url format: https://api.forecast.io/forecast/APIKEY/LATITUDE,LONGITUDE
-var apiKey = "78a91726f6e91c6781a68df0242f1f54"
-var baseUrl = "https://api.forecast.io/forecast/" + apiKey
-// containers
-var containerEl = document.querySelector("#currentTemp"),
-	currentViewButton = document.querySelector(".buttons button[value='current']"),
-	dailyViewButton = document.querySelector(".buttons button[value='daily']"),
-	hourlyViewButton = document.querySelector(".buttons button[value='hourly']")
+// ---------------- Change View ---------------- //
+// changes hash depending on what button was clicked
+var changeView = function(clickEvent) {
+	var route = window.location.hash.substr(1),
+		routeParts = route.split('/'),
+		lat = routeParts[1],
+		lng = routeParts[2]
 
-// var skycons = new Skycons({"color": "pink"});
-
-// var icons = new Skycons({"color":"white"}),
-//     list = [
-//       "clear-day",
-//       "clear-night",
-//       "partly-cloudy-day",
-//       "partly-cloudy-night",
-//       "cloudy",
-//       "rain",
-//       "sleet",
-//       "snow",
-//       "wind",
-//       "fog"
-//      ],
-//     i;
-
-// for(i = list.length; i--;)
-//   icons.set(list[i], list[i]);
-
-// icons.play();
-
-// ---------------- Current ---------------- //
-var getCurrentWeather = function(positionObj) {
-	var lat = positionObj.coords.latitude,
-		long = positionObj.coords.longitude
-	var fullUrl = baseUrl + "/" + lat + "," + long
-	// var fullUrl = baseUrl + "/" + lat + "," + long + "?callback=?"
-	$.getJSON(fullUrl + "?callback=?").then(generateCurrentHTML)
+	var buttonEl = clickEvent.target,
+		newView = buttonEl.value
+	location.hash = newView + "/" + lat + "/" + lng
 }
 
+// ---------------- Promise Statement ---------------- //
+// desired Url format: https://api.forecast.io/forecast/APIKEY/LATITUDE,LONGITUDE
+var makeWeatherPromise = function(lat,lng) {
+	var url = baseUrl + "/" + apiKey + "/" + lat + "," + lng + "?callback=?"
+	var promise = $.getJSON(url)
+	return promise
+}
+
+// ---------------- Current ---------------- //
+
 var generateCurrentHTML = function(response){
-	// console.log(response)
+	console.log(response)
 	var htmlString = "<div class='currentTempStyles'>"
 		htmlString += 	"<h1>" + Math.round(response.currently.temperature) + "&deg; F</h1>"
-		// htmlString +=	"<canvas id='icon2' width='128' height='128'>" + skycons.add(response.currently.icon) + "</canvas>"
+		htmlString += 	"<p>" + response.currently.summary + "</p>"
+		htmlString +=	"<canvas id='icon1' width='100' height='100'></canvas>"
 		htmlString += "</div>"
 	containerEl.innerHTML = htmlString
+	var iconString = response.currently.icon
+	doSkyconStuff(iconString)
 }
 
 // ---------------- Daily ---------------- //
-
-var getDailyWeather = function(positionObj) {
-	var lat = positionObj.coords.latitude,
-		long = positionObj.coords.longitude
-	var fullUrl = baseUrl + "/" + lat + "," + long
-	// var fullUrl = baseUrl + "/" + lat + "," + long + "?callback=?"
-	$.getJSON(fullUrl + "?callback=?").then(generateDailyHTML)
-}
 
 var generateDailyHTML = function(jsonData) { 
 	// console.log(jsonData)
@@ -93,14 +71,6 @@ var generateDayHTML = function(response){
 
 // ---------------- Hourly ---------------- //
 
-var getHourlyWeather = function(positionObj) {
-	var lat = positionObj.coords.latitude,
-		long = positionObj.coords.longitude
-	var fullUrl = baseUrl + "/" + lat + "," + long
-	// var fullUrl = baseUrl + "/" + lat + "," + long + "?callback=?"
-	$.getJSON(fullUrl + "?callback=?").then(generateHourlyHTML)
-}
-
 var generateHourlyHTML = function(jsonData) { 
 	// console.log(jsonData)
 	var hourlyArray = jsonData.hourly.data
@@ -129,40 +99,67 @@ var generateHourHTML = function(response){
 	return htmlString
 }
 
-// ---------------- Change View ---------------- //
-// changes hash depending on what button was clicked
-var viewChange = function(event) {
-	var buttonEl = event.target
-	// currentQuery = window.location.hash.split('/')[1]
-	window.location.hash = buttonEl.value
-	// later: add search query to end of url: 
-	// window.location.hash = buttonEl.value + '/' + currentQuery
-}
-
 // ---------------- Controller ---------------- //
 
-var controller = function() {
-	// var route = window.location.hash.substring(1)
-	var viewType = window.location.hash.substring(1)
-	// TO DO: split "<view type>/<search word>" into an array later when search function is added
-	if (viewType === "current") {
-		navigator.geolocation.getCurrentPosition(getCurrentWeather)	
+var WeatherRouter = Backbone.Router.extend({ //THIS IS JUST A CONSTRUCTOR!
+	routes: {
+		"current/:lat/:lng": "handleCurrentView",
+		"daily/:lat/:lng": "handleDailyView",
+		"hourly/:lat/:lng": "handleHourlyView",
+		"*default": "handleDefault"
+	},
+
+	handleCurrentView: function(lat,lng) {
+		var promise = makeWeatherPromise(lat,lng)
+		promise.then(generateCurrentHTML)
+	},
+
+	handleDailyView: function(lat,lng) {
+		var promise = makeWeatherPromise(lat,lng)
+		promise.then(generateDailyHTML)
+	},
+
+	handleDefault: function() {
+		// get current lat long, write into the route
+		var successCallback = function(positionObject) {
+			var lat = positionObject.coords.latitude 
+			var lng = positionObject.coords.longitude 
+			location.hash = "current/" + lat + "/" + lng
+		}
+		var errorCallback = function(error) {
+			console.log(error)
+		}
+		window.navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+	},
+
+	handleHourlyView: function(lat,lng) {
+		var promise = makeWeatherPromise(lat,lng)
+		promise.then(generateHourlyHTML)	
 	}
-	else if (viewType === "daily") {
-		navigator.geolocation.getCurrentPosition(getDailyWeather)
-	}
-	else if (viewType === "hourly") {
-		navigator.geolocation.getCurrentPosition(getHourlyWeather)
-	}
+})
+
+// ---------------- Skycons ---------------- //
+
+var doSkyconStuff = function(iconString) {
+	//console.log(iconString)
+	var formattedIcon = iconString.toUpperCase().replace(/-/g,"_")
+
+	var skycons = new Skycons({"color": "white"})
+
+	// you can add a canvas by it's ID...
+	skycons.add("icon1", Skycons[formattedIcon])
+
+	skycons.play()
 }
 
 // ---------------- Listeners ---------------- //
+var apiKey = "78a91726f6e91c6781a68df0242f1f54"
+var baseUrl = "https://api.forecast.io/forecast"
+// containers
+var containerEl = document.querySelector("#currentTemp")
 
-if (window.location.hash === '') window.location.hash = "current"
-else controller()
-// controller()
-window.addEventListener('hashchange', controller)
-currentViewButton.addEventListener('click', viewChange)
-dailyViewButton.addEventListener('click', viewChange)
-hourlyViewButton.addEventListener('click', viewChange)
-// skycons.play()
+var buttonsContainer = document.querySelector(".buttons")
+buttonsContainer.addEventListener('click',changeView)
+
+var rtr = new WeatherRouter()
+Backbone.history.start()

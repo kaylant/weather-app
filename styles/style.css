@@ -16,7 +16,7 @@ body {
 #mainContainer {
   width: 100%;
   text-align: center;
-  background-image: url("https://media.giphy.com/media/kVicp4f3OJoze/giphy.gif");
+  background: url("../images/double_rainbow_tint.png");
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;

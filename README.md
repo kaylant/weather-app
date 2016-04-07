@@ -1,6 +1,6 @@
 ##Weather App
 
-![](imgs/kaylan-smith-weatherapp.png)
+![](images/kaylan-smith-weatherapp.png)
 
 Vanilla Javascript & [Dark Sky Forecast API](https://developer.forecast.io/)
 
